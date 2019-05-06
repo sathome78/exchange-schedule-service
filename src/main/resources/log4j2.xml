@@ -60,18 +60,22 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <logger name="Service_layer_log" level="ALL" additivity="false">
+        <Logger name="Service_layer_log" level="ALL" additivity="false">
             <AppenderRef ref="service_log"/>
-        </logger>
-        <logger name="Dao_layer_log" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="Dao_layer_log" level="ALL" additivity="false">
             <AppenderRef ref="dao_log"/>
-        </logger>
-        <logger name="Jdbc_query_layer_log" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="Jdbc_query_layer_log" level="ALL" additivity="false">
             <AppenderRef ref="jdbc_query_log"/>
-        </logger>
-        <logger name="Cron_job_layer_log" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="Cron_job_layer_log" level="ALL" additivity="false">
             <AppenderRef ref="cron_job_query_log"/>
-        </logger>
+            <AppenderRef ref="Console"/>
+        </Logger>
         <Root level="INFO">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="Logs"/>
