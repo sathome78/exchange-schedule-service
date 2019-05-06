@@ -4,20 +4,20 @@ import lombok.extern.log4j.Log4j2;
 import me.exrates.scheduleservice.repositories.ReportDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Log4j2
+@Log4j2(topic = "Dao_layer_log")
 @Repository
 public class ReportDaoImpl implements ReportDao {
 
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcOperations namedParameterJdbcTemplate;
 
     @Autowired
-    public ReportDaoImpl(@Qualifier(value = "masterTemplate") NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public ReportDaoImpl(@Qualifier(value = "masterTemplate") NamedParameterJdbcOperations namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 

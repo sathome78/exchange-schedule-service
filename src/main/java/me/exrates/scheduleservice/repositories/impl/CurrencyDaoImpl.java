@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,16 +22,16 @@ import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
 
-@Log4j2
+@Log4j2(topic = "Dao_layer_log")
 @Repository
 public class CurrencyDaoImpl implements CurrencyDao {
 
-    private final JdbcTemplate jdbcTemplate;
-    private final NamedParameterJdbcTemplate masterJdbcTemplate;
+    private final JdbcOperations jdbcTemplate;
+    private final NamedParameterJdbcOperations masterJdbcTemplate;
 
     @Autowired
-    public CurrencyDaoImpl(@Qualifier("jMasterTemplate") JdbcTemplate jdbcTemplate,
-                           @Qualifier("masterTemplate") NamedParameterJdbcTemplate masterJdbcTemplate) {
+    public CurrencyDaoImpl(@Qualifier("jMasterTemplate") JdbcOperations jdbcTemplate,
+                           @Qualifier("masterTemplate") NamedParameterJdbcOperations masterJdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.masterJdbcTemplate = masterJdbcTemplate;
     }

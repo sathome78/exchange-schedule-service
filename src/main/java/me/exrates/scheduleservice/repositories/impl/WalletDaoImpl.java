@@ -7,7 +7,7 @@ import me.exrates.scheduleservice.models.enums.UserRole;
 import me.exrates.scheduleservice.repositories.WalletDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,17 +18,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Log4j2
+@Log4j2(topic = "Dao_layer_log")
 @Repository
 public class WalletDaoImpl implements WalletDao {
 
-    private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final NamedParameterJdbcTemplate slaveJdbcTemplate;
+    private final NamedParameterJdbcOperations masterJdbcTemplate;
+    private final NamedParameterJdbcOperations slaveJdbcTemplate;
 
     @Autowired
-    public WalletDaoImpl(@Qualifier(value = "masterTemplate") NamedParameterJdbcTemplate jdbcTemplate,
-                         @Qualifier(value = "slaveTemplate") NamedParameterJdbcTemplate slaveJdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public WalletDaoImpl(@Qualifier(value = "masterTemplate") NamedParameterJdbcOperations masterJdbcTemplate,
+                         @Qualifier(value = "slaveTemplate") NamedParameterJdbcOperations slaveJdbcTemplate) {
+        this.masterJdbcTemplate = masterJdbcTemplate;
         this.slaveJdbcTemplate = slaveJdbcTemplate;
     }
 
@@ -117,7 +117,7 @@ public class WalletDaoImpl implements WalletDao {
             }
         };
 
-        jdbcTemplate.update(sql, params);
+        masterJdbcTemplate.update(sql, params);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -140,7 +140,7 @@ public class WalletDaoImpl implements WalletDao {
                 put("total_balance", internalWalletBalancesDto.getTotalBalance());
             }
         };
-        jdbcTemplate.update(sql, params);
+        masterJdbcTemplate.update(sql, params);
     }
 
     @Override
@@ -181,7 +181,7 @@ public class WalletDaoImpl implements WalletDao {
                 put("balance", balance);
             }
         };
-        jdbcTemplate.update(sql, params);
+        masterJdbcTemplate.update(sql, params);
 
         sql = "UPDATE COMPANY_EXTERNAL_WALLET_BALANCES cewb" +
                 " SET cewb.reserved_balance = IFNULL((SELECT SUM(cwera.balance) FROM COMPANY_WALLET_EXTERNAL_RESERVED_ADDRESS cwera WHERE cwera.currency_id = :currency_id GROUP BY cwera.currency_id), 0), " +
@@ -197,6 +197,6 @@ public class WalletDaoImpl implements WalletDao {
                 put("last_updated_at", lastReservedBalanceUpdate);
             }
         };
-        jdbcTemplate.update(sql, params);
+        masterJdbcTemplate.update(sql, params);
     }
 }

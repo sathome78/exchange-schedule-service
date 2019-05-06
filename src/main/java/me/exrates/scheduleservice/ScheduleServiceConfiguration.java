@@ -11,12 +11,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Log4j2
 @Configuration
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@EnableJpaRepositories(basePackages = {"me.exrates.scheduleservice.repositories"})
 @Import({
         CacheConfiguration.class,
         DatabaseConfiguration.class,

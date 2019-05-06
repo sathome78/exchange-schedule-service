@@ -36,7 +36,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 import static me.exrates.scheduleservice.ScheduleServiceConfiguration.JSON_MAPPER;
 
-@Log4j2
+@Log4j2(topic = "Service_layer_log")
 @Service
 @Transactional
 public class ReportServiceImpl implements ReportService {

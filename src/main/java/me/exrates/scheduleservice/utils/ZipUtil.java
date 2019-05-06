@@ -10,7 +10,7 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 @NoArgsConstructor(access = AccessLevel.NONE)
-public class ZipUtil {
+public final class ZipUtil {
 
     public static byte[] zip(byte[] balancesBytes) throws IOException {
         Deflater deflater = new Deflater();

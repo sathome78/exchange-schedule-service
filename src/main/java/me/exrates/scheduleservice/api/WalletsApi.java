@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toMap;
 
-@Log4j2
+@Log4j2(topic = "Service_layer_log")
 @Component
 public class WalletsApi {
 

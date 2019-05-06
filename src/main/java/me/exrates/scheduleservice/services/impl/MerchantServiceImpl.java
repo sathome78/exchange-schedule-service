@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import static java.util.Objects.isNull;
 import static me.exrates.scheduleservice.utils.CollectionUtil.isEmpty;
 
-@Log4j2
+@Log4j2(topic = "Service_layer_log")
 @Service
 @Transactional
 public class MerchantServiceImpl implements MerchantService {

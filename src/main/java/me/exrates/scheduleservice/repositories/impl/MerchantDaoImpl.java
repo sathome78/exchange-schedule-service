@@ -6,8 +6,8 @@ import me.exrates.scheduleservice.repositories.MerchantDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,16 +16,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-@Log4j2
+@Log4j2(topic = "Dao_layer_log")
 @Repository
 public class MerchantDaoImpl implements MerchantDao {
 
-    private final NamedParameterJdbcTemplate slaveJdbcTemplate;
-    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcOperations slaveJdbcTemplate;
+    private final JdbcOperations jdbcTemplate;
 
     @Autowired
-    public MerchantDaoImpl(@Qualifier(value = "slaveTemplate") NamedParameterJdbcTemplate slaveJdbcTemplate,
-                           @Qualifier(value = "jMasterTemplate") JdbcTemplate jdbcTemplate) {
+    public MerchantDaoImpl(@Qualifier(value = "slaveTemplate") NamedParameterJdbcOperations slaveJdbcTemplate,
+                           @Qualifier(value = "jMasterTemplate") JdbcOperations jdbcTemplate) {
         this.slaveJdbcTemplate = slaveJdbcTemplate;
         this.jdbcTemplate = jdbcTemplate;
     }

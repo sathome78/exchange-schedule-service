@@ -1,5 +1,8 @@
 package me.exrates.scheduleservice.utils;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -8,7 +11,8 @@ import java.text.DecimalFormatSymbols;
 /**
  * Contained constans and methods to operate with BigDecimal value
  */
-public class BigDecimalProcessingUtil {
+@NoArgsConstructor(access = AccessLevel.NONE)
+public final class BigDecimalProcessingUtil {
 
     private static final int SCALE = 9;
     private static final RoundingMode ROUND_TYPE = RoundingMode.HALF_UP;

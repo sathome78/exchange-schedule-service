@@ -1,16 +1,12 @@
 package me.exrates.scheduleservice.utils;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Component
-@NoArgsConstructor(access = AccessLevel.NONE)
 public class BigDecimalConverter {
 
     private static final double BOUND_1 = 0.0001;

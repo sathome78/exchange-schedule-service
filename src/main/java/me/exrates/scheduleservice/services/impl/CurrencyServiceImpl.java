@@ -32,7 +32,7 @@ import static me.exrates.scheduleservice.configurations.CacheConfiguration.ALL_R
 import static me.exrates.scheduleservice.configurations.CacheConfiguration.CURRENCY_CACHE;
 import static me.exrates.scheduleservice.utils.CollectionUtil.isEmpty;
 
-@Log4j2
+@Log4j2(topic = "Service_layer_log")
 @Service
 @Transactional
 public class CurrencyServiceImpl implements CurrencyService {

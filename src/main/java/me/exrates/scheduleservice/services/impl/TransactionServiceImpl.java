@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Log4j2
+@Log4j2(topic = "Service_layer_log")
 @Service
 @Transactional
 public class TransactionServiceImpl implements TransactionService {

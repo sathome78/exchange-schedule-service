@@ -7,7 +7,7 @@ import me.exrates.scheduleservice.repositories.TransactionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
@@ -19,14 +19,14 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
 
-@Log4j2
+@Log4j2(topic = "Dao_layer_log")
 @Repository
 public class TransactionDaoImpl implements TransactionDao {
-    
-    private final NamedParameterJdbcTemplate jdbcTemplate;
+
+    private final NamedParameterJdbcOperations jdbcTemplate;
 
     @Autowired
-    public TransactionDaoImpl(@Qualifier(value = "masterTemplate") NamedParameterJdbcTemplate jdbcTemplate) {
+    public TransactionDaoImpl(@Qualifier(value = "masterTemplate") NamedParameterJdbcOperations jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
