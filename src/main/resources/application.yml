@@ -1,0 +1,96 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    admin:
+      enabled: true
+    name: schedule-service
+  profiles:
+    active: dev
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/birzha?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      username: root
+      ssm-path: vLHjSkPJjB6JLVcA
+      connection-timeout: 30000
+      idle-timeout: 180000
+      max-lifetime: 600000
+      connection-init-sql: SELECT 1 FROM DUAL;
+      connection-test-query: SELECT 2 FROM DUAL;
+      minimum-idle: 5
+      maximum-pool-size: 200
+      validation-timeout: 5000
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+  redis:
+    host: 172.10.10.236
+    port: 6379
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+    mapper:
+      default_view_inclusion: true
+    default-property-inclusion: 'non_null'
+
+ssm:
+  mode: dev
+  path: /exrates/auth-service/test/pass.token
+
+api:
+  exchange:
+    url: http://172.50.10.10:80/currency/rates
+    username: varvatos
+    password: qGbxQ466NWpB3W5G
+  wallets:
+    url: http://172.31.3.72:80/currencies
+    username: varvatos
+    password: qGbxQ466NWpB3W5G
+
+scheduled:
+  update:
+    external-balances: 0 */5 * ? * *
+    internal-balances: 0 */5 * ? * *
+    report: 0 */5 * ? * *
+    withdraw-commissions-limits: 0 */5 * ? * *
+    withdraw-limits: 0 */5 * ? * *
+
+precision:
+  #less than 0.0001
+  value1: 7
+  #between 0.0001 and 0.001
+  value2: 6
+  #between 0.001 and 0.01
+  value3: 5
+  #between 0.01 and 0.1
+  value4: 4
+  #between 0.1 and 1
+  value5: 3
+  #between 1 and 10
+  value6: 1
+  #between 10 and 100
+  value7: 0
+  #between 100 and 10000
+  value8: -1
+  #between 10000 and 100000
+  value9: -2
+  #more than 100000
+  value10: -3
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+logging:
+  level:
+    org:
+      hibernate:
+        type: debug
