@@ -16,7 +16,7 @@ spring:
       connection-init-sql: SELECT 1 FROM DUAL;
       connection-test-query: SELECT 2 FROM DUAL;
       minimum-idle: 5
-      maximum-pool-size: 200
+      maximum-pool-size: 10
       validation-timeout: 5000
   jpa:
     hibernate:
