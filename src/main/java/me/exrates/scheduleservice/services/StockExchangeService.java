@@ -7,6 +7,4 @@ import java.util.List;
 public interface StockExchangeService {
 
     void retrieveCurrencies();
-
-    List<StockExchangeStatsDto> getStockExchangeStatistics(Integer currencyPairId);
 }

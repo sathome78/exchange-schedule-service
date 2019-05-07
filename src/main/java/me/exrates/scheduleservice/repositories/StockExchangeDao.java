@@ -10,6 +10,4 @@ public interface StockExchangeDao {
     void saveStockExchangeStatsList(List<StockExchangeStatsDto> stockExchangeRates);
 
     List<StockExchangeDto> findAllActive();
-
-    List<StockExchangeStatsDto> getStockExchangeStatistics(Integer currencyPairId);
 }

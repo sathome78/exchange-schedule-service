@@ -76,11 +76,6 @@ public class StockExchangeServiceImpl implements StockExchangeService {
         stockExchangeDao.saveStockExchangeStatsList(stockExchangeStatsList);
     }
 
-    @Override
-    public List<StockExchangeStatsDto> getStockExchangeStatistics(Integer currencyPairId) {
-        return stockExchangeDao.getStockExchangeStatistics(currencyPairId);
-    }
-
     @PreDestroy
     public void destroy() {
         executorService.shutdown();
