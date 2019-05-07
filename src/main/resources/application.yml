@@ -57,6 +57,7 @@ scheduled:
     report: 0 */5 * ? * *
     withdraw-commissions-limits: 0 */5 * ? * *
     withdraw-limits: 0 */5 * ? * *
+    stock-exchange: 0 0 * * * *
 
 precision:
   #less than 0.0001

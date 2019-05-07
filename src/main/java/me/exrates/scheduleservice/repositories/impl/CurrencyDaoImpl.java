@@ -4,13 +4,16 @@ import lombok.extern.log4j.Log4j2;
 import me.exrates.scheduleservice.models.dto.BalanceDto;
 import me.exrates.scheduleservice.models.dto.CurrencyDto;
 import me.exrates.scheduleservice.models.dto.CurrencyLimitDto;
+import me.exrates.scheduleservice.models.dto.CurrencyPairDto;
 import me.exrates.scheduleservice.models.dto.RateDto;
+import me.exrates.scheduleservice.models.enums.CurrencyPairType;
 import me.exrates.scheduleservice.repositories.CurrencyDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,6 +31,27 @@ public class CurrencyDaoImpl implements CurrencyDao {
 
     private final JdbcOperations jdbcTemplate;
     private final NamedParameterJdbcOperations masterJdbcTemplate;
+
+    public static RowMapper<CurrencyPairDto> currencyPairRowMapper = (rs, row) -> {
+        CurrencyPairDto currencyPair = new CurrencyPairDto();
+        currencyPair.setId(rs.getInt("id"));
+        currencyPair.setName(rs.getString("name"));
+        currencyPair.setPairType(CurrencyPairType.valueOf(rs.getString("type")));
+
+        CurrencyDto currency1 = new CurrencyDto();
+        currency1.setId(rs.getInt("currency1_id"));
+        currency1.setName(rs.getString("currency1_name"));
+        currencyPair.setCurrency1(currency1);
+
+        CurrencyDto currency2 = new CurrencyDto();
+        currency2.setId(rs.getInt("currency2_id"));
+        currency2.setName(rs.getString("currency2_name"));
+        currencyPair.setCurrency2(currency2);
+
+        currencyPair.setMarket(rs.getString("market"));
+
+        return currencyPair;
+    };
 
     @Autowired
     public CurrencyDaoImpl(@Qualifier("jMasterTemplate") JdbcOperations jdbcTemplate,
