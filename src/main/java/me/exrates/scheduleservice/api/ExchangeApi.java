@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toList;
@@ -70,28 +69,6 @@ public class ExchangeApi {
                         .build())
                 .collect(toList())
                 : Collections.emptyList();
-    }
-
-    public Map<String, BigDecimal> getRatesByCurrencyType(String type) {
-        HttpEntity<ExchangeData> requestEntity = new HttpEntity<>(getAuthHeaders());
-
-        ResponseEntity<ExchangeData> responseEntity;
-        try {
-            responseEntity = restTemplate.exchange(String.format(url + "/type/%s", type), HttpMethod.GET, requestEntity, ExchangeData.class);
-            if (responseEntity.getStatusCodeValue() != 200) {
-                throw new ExchangeApiException("Exchange server is not available");
-            }
-        } catch (Exception ex) {
-            log.warn("Exchange service did not return valid data: server not available");
-            return Collections.emptyMap();
-        }
-        ExchangeData body = responseEntity.getBody();
-        return nonNull(body) && nonNull(body.rates) && !body.rates.isEmpty()
-                ? body.rates.entrySet().stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        entry -> BigDecimal.valueOf(entry.getValue().usdRate)))
-                : Collections.emptyMap();
     }
 
     private HttpHeaders getAuthHeaders() {
