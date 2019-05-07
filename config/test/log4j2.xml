@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="socket.host">${bundle:logs:elk.host}</Property>
+        <Property name="socket.port">${bundle:logs:elk.port}</Property>
+        <Property name="socket.log.level">${bundle:logs:socket.logging}</Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{dd MMM yyyy HH:mm:ss.SSS} %level [%t] %C:%M:%L - %message  %n"/>
+        </Console>
+        <Socket name="Socket" host="${socket.host}" port="${socket.port}">
+            <JsonLayout compact="true" eventEol="true" />
+            <ThresholdFilter level="${socket.log.level}"/>
+        </Socket>
+        <RollingFile name="Logs" fileName="${sys:catalina.home}/logs/general/log.log"
+                     filePattern="${sys:catalina.home}/logs/general/log_%d_%i.log" append="true">
+            <PatternLayout pattern="%d{dd MMM yyyy HH:mm:ss.SSS} %level [%t] %C:%M:%L - %message%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="20 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="service_log" fileName="${sys:catalina.home}/logs/id_logs/service_log.log"
+                     filePattern="${sys:catalina.home}/logs/id_logs/service_log%d_%i.log" append="true">
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss.SSS} process-id=%X{process-id} %level - %message%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="1000 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="dao_log" fileName="${sys:catalina.home}/logs/id_logs/dao_log.log"
+                     filePattern="${sys:catalina.home}/logs/id_logs/dao_log%d_%i.log" append="true">
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss.SSS} process-id=%X{process-id} %level - %message%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="1000 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="jdbc_query_log" fileName="${sys:catalina.home}/logs/id_logs/jdbc_log.log"
+                     filePattern="${sys:catalina.home}/logs/id_logs/jdbc_log%d_%i.log" append="true">
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss.SSS} process-id=%X{process-id} %level - %message%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="1000 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+        <RollingFile name="cron_job_query_log" fileName="${sys:catalina.home}/logs/id_logs/cron_job_log.log"
+                     filePattern="${sys:catalina.home}/logs/id_logs/cron_job_log%d_%i.log" append="true">
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss.SSS} process-id=%X{process-id} %level - %message%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="1000 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="Service_layer_log" level="ALL" additivity="false">
+            <AppenderRef ref="service_log"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="Dao_layer_log" level="ALL" additivity="false">
+            <AppenderRef ref="dao_log"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="Jdbc_query_layer_log" level="ALL" additivity="false">
+            <AppenderRef ref="jdbc_query_log"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="Cron_job_layer_log" level="ALL" additivity="false">
+            <AppenderRef ref="cron_job_query_log"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Logs"/>
+        </Root>
+    </Loggers>
+</Configuration>

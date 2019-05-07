@@ -1,6 +1,3 @@
-server:
-  port: 8081
-
 spring:
   application:
     admin:
@@ -39,7 +36,7 @@ datasource:
 
 ssm:
   mode: dev
-  path: vLHjSkPJjB6JLVcA
+  path: /exrates/core-service/test/mysql.token
 
 api:
   exchange:
@@ -85,7 +82,7 @@ precision:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8082/eureka}
+      defaultZone: ${EUREKA_URI:http://172.50.50.245:8090/eureka}
     should-unregister-on-shutdown: true
     registry-fetch-interval-seconds: 5
   instance:

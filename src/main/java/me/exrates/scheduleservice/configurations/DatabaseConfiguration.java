@@ -21,13 +21,13 @@ import javax.sql.DataSource;
 
 public class DatabaseConfiguration {
 
-    @Value("${spring.datasource.hikari.driver-class-name}")
+    @Value("${datasource.driver-class-name}")
     private String driverClassName;
-    @Value("${spring.datasource.hikari.jdbc-url}")
+    @Value("${datasource.jdbc-url}")
     private String jdbcUrl;
-    @Value("${spring.datasource.hikari.username}")
+    @Value("${datasource.username}")
     private String user;
-    @Value("${spring.datasource.hikari.ssm-path}")
+    @Value("${ssm.path}")
     private String ssmPath;
 
     @Autowired

@@ -1,15 +1,15 @@
-server:
-  port: 8081
-
 spring:
   application:
     admin:
       enabled: true
     name: schedule-service
   profiles:
-    active: dev
+    active: preprod
   datasource:
     hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://prodex-replicatest.cedlveyttji9.us-east-2.rds.amazonaws.com:3306/birzha?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      username: coreapiuser
       connection-timeout: 30000
       idle-timeout: 180000
       max-lifetime: 600000
@@ -34,12 +34,12 @@ spring:
 
 datasource:
   driver-class-name: com.mysql.cj.jdbc.Driver
-  jdbc-url: jdbc:mysql://localhost:3306/birzha?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-  username: root
+  jdbc-url: jdbc:mysql://prodex-replicatest.cedlveyttji9.us-east-2.rds.amazonaws.com:3306/birzha?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  username: coreapiuser
 
 ssm:
   mode: dev
-  path: vLHjSkPJjB6JLVcA
+  path: /exrates/core-service/preprod/mysql.token
 
 api:
   exchange:
@@ -53,11 +53,11 @@ api:
 
 scheduled:
   update:
-    external-balances: 0 */5 * ? * *
-    internal-balances: 0 */5 * ? * *
-    report: 0 */5 * ? * *
-    withdraw-commissions-limits: 0 */5 * ? * *
-    withdraw-limits: 0 */5 * ? * *
+    external-balances: 0 */30 * ? * *
+    internal-balances: 0 */30 * ? * *
+    report: 0 0 * ? * *
+    withdraw-commissions-limits: 0 */30 * ? * *
+    withdraw-limits: 0 */30 * ? * *
     stock-exchange: 0 0 * * * *
 
 precision:
@@ -85,7 +85,7 @@ precision:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8082/eureka}
+      defaultZone: ${EUREKA_URI:http://172.50.50.245:8092/eureka}
     should-unregister-on-shutdown: true
     registry-fetch-interval-seconds: 5
   instance:
