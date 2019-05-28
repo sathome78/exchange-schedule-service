@@ -65,7 +65,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Transactional(readOnly = true)
     @Override
     public CurrencyDto findByName(String name) {
-        return currencyCache.get(CURRENCY_CACHE, () -> currencyDao.findByName(name));
+        return currencyCache.get(name, () -> currencyDao.findByName(name));
     }
 
     @Transactional(readOnly = true)
