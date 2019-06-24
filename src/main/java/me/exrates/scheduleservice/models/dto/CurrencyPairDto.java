@@ -19,6 +19,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CurrencyPairDto implements Serializable {
+
     private int id;
     private String name;
     private CurrencyDto currency1;

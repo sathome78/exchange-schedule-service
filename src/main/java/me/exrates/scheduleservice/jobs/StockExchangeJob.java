@@ -21,6 +21,10 @@ public class StockExchangeJob {
 
     @Scheduled(cron = "${scheduled.update.stock-exchange}")
     public void retrieveCurrencies() {
-        stockExchangeService.retrieveCurrencies();
+        try {
+            stockExchangeService.retrieveCurrencies();
+        } catch (Exception ex) {
+            log.error("--> In processing 'StockExchangeJob' occurred error", ex);
+        }
     }
 }

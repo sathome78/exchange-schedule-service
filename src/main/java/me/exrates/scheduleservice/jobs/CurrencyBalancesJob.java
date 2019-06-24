@@ -21,6 +21,10 @@ public class CurrencyBalancesJob {
 
     @Scheduled(initialDelay = 0, fixedDelay = 30 * 60 * 1000)
     public void update() {
-        currencyService.updateCurrencyBalances();
+        try {
+            currencyService.updateCurrencyBalances();
+        } catch (Exception ex) {
+            log.error("--> In processing 'CurrencyBalancesJob' occurred error", ex);
+        }
     }
 }

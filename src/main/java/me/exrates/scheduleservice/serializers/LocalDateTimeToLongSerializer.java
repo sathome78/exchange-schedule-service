@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 public class LocalDateTimeToLongSerializer extends JsonSerializer<LocalDateTime> {
 
-
     @Override
     public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException, JsonProcessingException {
         gen.writeNumber(Timestamp.valueOf(value).getTime());

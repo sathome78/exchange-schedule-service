@@ -21,6 +21,10 @@ public class ExternalReservedWalletBalancesJob {
 
     @Scheduled(cron = "${scheduled.update.external-balances}")
     public void update() {
-        walletService.updateExternalReservedWalletBalances();
+        try {
+            walletService.updateExternalReservedWalletBalances();
+        } catch (Exception ex) {
+            log.error("--> In processing 'ExternalReservedWalletBalancesJob' occurred error", ex);
+        }
     }
 }

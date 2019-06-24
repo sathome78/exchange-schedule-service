@@ -25,5 +25,4 @@ public class ApplicationEventWithProcessId extends ApplicationEvent {
     }
 
     private Optional<String> processId;
-
 }

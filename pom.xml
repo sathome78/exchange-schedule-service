@@ -213,6 +213,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>schedule</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

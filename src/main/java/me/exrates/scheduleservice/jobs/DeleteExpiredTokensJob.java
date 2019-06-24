@@ -21,6 +21,10 @@ public class DeleteExpiredTokensJob {
 
     @Scheduled(initialDelay = 60 * 1000, fixedDelay = 12 * 60 * 60 * 1000)
     public void delete() {
-        apiAuthTokenService.deleteAllExpired();
+        try {
+            apiAuthTokenService.deleteAllExpired();
+        } catch (Exception ex) {
+            log.error("--> In processing 'DeleteExpiredTokensJob' occurred error", ex);
+        }
     }
 }

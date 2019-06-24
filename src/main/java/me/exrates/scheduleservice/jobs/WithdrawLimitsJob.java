@@ -21,6 +21,10 @@ public class WithdrawLimitsJob {
 
     @Scheduled(cron = "${scheduled.update.withdraw-limits}")
     public void update() {
-        currencyService.updateWithdrawLimits();
+        try {
+            currencyService.updateWithdrawLimits();
+        } catch (Exception ex) {
+            log.error("--> In processing 'WithdrawLimitsJob' occurred error", ex);
+        }
     }
 }

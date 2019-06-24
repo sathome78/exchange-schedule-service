@@ -21,6 +21,10 @@ public class GenerateReportTwoJob {
 
     @Scheduled(cron = "${scheduled.update.report}")
     public void update() {
-        reportService.generateInputOutputSummaryReportObject();
+        try {
+            reportService.generateInputOutputSummaryReportObject();
+        } catch (Exception ex) {
+            log.error("--> In processing 'GenerateReportTwoJob' occurred error", ex);
+        }
     }
 }

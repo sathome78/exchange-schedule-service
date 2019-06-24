@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @ToString
 public class MerchantCurrencyOptionsDto {
+
     private Integer merchantId;
     private Integer currencyId;
     private String merchantName;

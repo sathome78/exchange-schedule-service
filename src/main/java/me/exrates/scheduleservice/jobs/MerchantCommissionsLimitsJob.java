@@ -21,6 +21,10 @@ public class MerchantCommissionsLimitsJob {
 
     @Scheduled(cron = "${scheduled.update.withdraw-commissions-limits}")
     public void update() {
-        merchantService.updateMerchantCommissionsLimits();
+        try {
+            merchantService.updateMerchantCommissionsLimits();
+        } catch (Exception ex) {
+            log.error("--> In processing 'MerchantCommissionsLimitsJob' occurred error", ex);
+        }
     }
 }
